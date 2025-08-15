@@ -60,7 +60,7 @@ export default function Resume() {
             <div className="text-center mb-6">
               <FileText size={48} className="text-blue-400 mx-auto mb-3" />
               <h3 className="text-xl font-semibold text-white mb-2">Resume Available</h3>
-              <p className="text-gray-300">Click "View PDF" to open the resume in a new tab, or "Download Resume" to save a copy.</p>
+              <p className="text-gray-300">Click &quot;View PDF&quot; to open the resume in a new tab, or &quot;Download Resume&quot; to save a copy.</p>
             </div>
             <div className="bg-gray-700/50 rounded-lg p-4 text-center border border-gray-600">
               <p className="text-sm text-gray-300">📄 ShashankTiwari_Resume.pdf is ready for viewing and download</p>

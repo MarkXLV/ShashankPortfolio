@@ -12,7 +12,7 @@ export default function Contact() {
               Contact <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Me</span>
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              I'm always open to discussing new opportunities, interesting projects, or just having a chat about technology.
+              I&apos;m always open to discussing new opportunities, interesting projects, or just having a chat about technology.
             </p>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default function Contact() {
               </div>
             </div>
             <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-lg shadow-lg border border-gray-700 hover:border-blue-500 transition-all duration-300 slide-in" style={{ animationDelay: '200ms' }}>
-              <h2 className="text-2xl font-bold text-white mb-6">What I'm Looking For</h2>
+              <h2 className="text-2xl font-bold text-white mb-6">What I&apos;m Looking For</h2>
               <div className="space-y-4">
                 <div>
                   <h3 className="font-semibold text-white mb-2">Technical Growth</h3>

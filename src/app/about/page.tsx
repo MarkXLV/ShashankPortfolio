@@ -1,5 +1,3 @@
-import { Briefcase, GraduationCap, Code } from 'lucide-react';
-
 export default function About() {
   const skills = {
     'Languages': ['Java', 'Python', 'C/C++'],
@@ -30,7 +28,7 @@ export default function About() {
                   I am a results-driven Software Engineer with 1.5 years of experience specializing in building high-performance backend systems and MLOps pipelines. My expertise lies in delivering scalable, reliable software solutions and integrating AI capabilities into production environments.
                 </p>
                 <p>
-                  Currently, I am a Software Engineer at Deutsche Bank, where I focus on building high-throughput microservices architectures and optimizing data processing pipelines. My work involves GraphQL gateways, REST APIs, and ETL services using Apache Airflow, significantly improving data exchange and accuracy. I've also enhanced application responsiveness and reduced system outages by strengthening core infrastructure with technologies like Memcached and Java's ExecutorService.
+                  Currently, I am a Software Engineer at Deutsche Bank, where I focus on building high-throughput microservices architectures and optimizing data processing pipelines. My work involves GraphQL gateways, REST APIs, and ETL services using Apache Airflow, significantly improving data exchange and accuracy. I&apos;ve also enhanced application responsiveness and reduced system outages by strengthening core infrastructure with technologies like Memcached and Java&apos;s ExecutorService.
                 </p>
                 <p>
                   Previously, I interned at AIDASH as a Machine Learning Engineer, where I developed custom 

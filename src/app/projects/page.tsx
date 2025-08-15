@@ -48,7 +48,7 @@ export default function Projects() {
               My <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Projects</span>
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Here are some of the projects I've worked on, showcasing my skills in backend development, 
+              Here are some of the projects I&apos;ve worked on, showcasing my skills in backend development, 
               MLOps, and full-stack applications.
             </p>
           </div>
