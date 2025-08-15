@@ -131,19 +131,19 @@ export default function Home() {
                     <profile.icon className="text-white" size={24} />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900">{profile.platform}</h3>
-                    <p className="text-gray-600 text-sm">@{profile.username}</p>
+                    <h3 className="text-xl font-bold text-white">{profile.platform}</h3>
+                    <p className="text-gray-400 text-sm">@{profile.username}</p>
                   </div>
                 </div>
                 
-                <p className="text-gray-600 mb-4 text-sm">{profile.description}</p>
+                <p className="text-gray-300 mb-4 text-sm">{profile.description}</p>
                 
                 <div className="mb-4">
-                  <h4 className="font-semibold text-gray-900 mb-2 text-sm">Achievements:</h4>
+                  <h4 className="font-semibold text-white mb-2 text-sm">Achievements:</h4>
                   <ul className="space-y-1">
                     {profile.achievements.map((achievement, idx) => (
-                      <li key={idx} className="text-xs text-gray-600 flex items-start gap-2">
-                        <span className="text-blue-500 mt-1">•</span>
+                      <li key={idx} className="text-xs text-gray-400 flex items-start gap-2">
+                        <span className="text-blue-400 mt-1">•</span>
                         {achievement}
                       </li>
                     ))}
@@ -154,7 +154,7 @@ export default function Home() {
                   href={profile.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 w-full justify-center px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm"
+                  className="inline-flex items-center gap-2 w-full justify-center px-4 py-2 bg-gradient-to-r from-gray-700 to-gray-800 text-white rounded-lg hover:from-gray-600 hover:to-gray-700 transition-all duration-300 hover:scale-105 border border-gray-600"
                 >
                   View Profile
                 </Link>
