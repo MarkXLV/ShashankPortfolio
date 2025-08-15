@@ -1,0 +1,74 @@
+{
+  "name": "Shashank Tiwari",
+  "title": "Software Engineer",
+  "contact": {
+    "email": "tiwari.shashank.85911@gmail.com",
+    "phone": "",
+    "linkedin": "https://www.linkedin.com/in/shashank-tiwari-916234244",
+    "github": "https://github.com/MarkXLV"
+  },
+  "summary": "Results-driven Software Engineer with 1.5 years of experience building high-performance backend systems and MLOps pipelines. Proven ability to deliver scalable, reliable software solutions and integrate AI capabilities in production environments.",
+  "skills": {
+    "primary": ["Java", "Python", "Spring Boot", "FastAPI", "AWS", "Docker", "Kubernetes", "Apache Airflow"],
+    "familiar": ["C/C++", "Django", "TensorFlow", "Scrapy", "Next.js", "Kubeflow", "Jenkins", "PostgreSQL", "Git", "Memcached"]
+  },
+  "experience": [
+    {
+      "company": "Deutsche Bank",
+      "title": "Software Engineer",
+      "location": "Pune, India",
+      "start": "2024-07",
+      "end": "Present",
+      "bullets": [
+        {
+          "action": "Processed thousands of daily transactions",
+          "context": "by building a high-throughput microservices architecture",
+          "result": "GraphQL gateway, REST APIs to ensure robust data exchange",
+          "tech": ["GraphQL", "REST APIs", "Microservices"],
+          "metrics": "thousands of daily transactions"
+        },
+        {
+          "action": "Reduced data loading times by 40%",
+          "context": "by engineering a RESTful ETL service",
+          "result": "Apache Airflow to process 10,000+ nested alerts daily, improving data accuracy for analytics teams",
+          "tech": ["Apache Airflow", "ETL", "RESTful"],
+          "metrics": "40% reduction, 10,000+ alerts daily"
+        }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Conversational AI Marketing Chatbot",
+      "description": "Full-stack conversational AI for marketing chatbot",
+      "tech": ["Next.js", "FastAPI", "PostgreSQL"],
+      "bullets": [
+        {
+          "action": "Handled 100+ concurrent user sessions",
+          "context": "with <500ms latency",
+          "result": "by engineering a full-stack conversational AI",
+          "tech": ["Next.js", "FastAPI", "PostgreSQL"],
+          "metrics": "100+ concurrent users, <500ms latency"
+        }
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Indian Institute of Information Technology, Allahabad",
+      "degree": "B.Tech in Electronics & Communication",
+      "gpa": "8.85/10.0",
+      "period": "2020-2024"
+    }
+  ],
+  "awards": [
+    {
+      "name": "Google Kick Start 2022",
+      "rank": "Global Rank 1636"
+    },
+    {
+      "name": "CodeChef Starters 30 (Aug 2022)",
+      "rank": "Global Rank 6"
+    }
+  ]
+}
