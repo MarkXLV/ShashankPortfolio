@@ -5,76 +5,80 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-gray-950 border-t border-gray-800/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Contact Info */}
+          {/* Bio */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Shashank Tiwari</h3>
-            <p className="text-gray-300 mb-4">
-              Software Engineer passionate about building scalable backend systems and MLOps pipelines.
+            <h3 className="text-lg font-semibold text-white mb-3">
+              Shashank Tiwari
+            </h3>
+            <p className="text-gray-500 text-sm leading-relaxed mb-4">
+              AI Engineer specializing in RL infrastructure, LLM agent systems,
+              and production post-training pipelines.
             </p>
-            <div className="flex space-x-4">
-              <Link
-                href="https://github.com/MarkXLV"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <Github size={20} />
-              </Link>
-              <Link
-                href="https://www.linkedin.com/in/shashank-tiwari-916234244"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <Linkedin size={20} />
-              </Link>
-              <Link
-                href="mailto:tiwari.shashank.85911@gmail.com"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <Mail size={20} />
-              </Link>
+            <div className="flex gap-3">
+              {[
+                { href: 'https://github.com/MarkXLV', icon: Github },
+                { href: 'https://linkedin.com/in/shashanktiwari11', icon: Linkedin },
+                { href: 'mailto:tiwari.shashank.85911@gmail.com', icon: Mail },
+              ].map(({ href, icon: Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  target={href.startsWith('mailto') ? undefined : '_blank'}
+                  rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
+                  className="p-2 rounded-lg text-gray-600 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-300"
+                >
+                  <Icon size={18} />
+                </Link>
+              ))}
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
+              Quick Links
+            </h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/projects" className="text-gray-300 hover:text-white transition-colors">
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link href="/resume" className="text-gray-300 hover:text-white transition-colors">
-                  Resume
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">
-                  Contact
-                </Link>
-              </li>
+              {[
+                { href: '/about', label: 'About' },
+                { href: '/projects', label: 'Projects' },
+                { href: '/resume', label: 'Resume' },
+                { href: '/contact', label: 'Contact' },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-gray-500 hover:text-blue-400 transition-colors text-sm"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Skills */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Skills</h3>
+            <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
+              Core Skills
+            </h3>
             <div className="flex flex-wrap gap-2">
-              {['Java', 'Python', 'Spring Boot', 'FastAPI', 'AWS', 'Docker', 'Kubernetes'].map((skill) => (
+              {[
+                'Reinforcement Learning',
+                'LLMs',
+                'Agent Systems',
+                'MCP',
+                'Python',
+                'FastAPI',
+                'Kubernetes',
+                'Fine-tuning',
+              ].map((skill) => (
                 <span
                   key={skill}
-                  className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-sm"
+                  className="px-2.5 py-1 text-xs bg-gray-800/60 text-gray-500 rounded-md border border-gray-800"
                 >
                   {skill}
                 </span>
@@ -83,8 +87,10 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; {currentYear} Shashank Tiwari. All rights reserved.</p>
+        <div className="border-t border-gray-800/50 mt-10 pt-8 text-center">
+          <p className="text-gray-600 text-sm">
+            &copy; {currentYear} Shashank Tiwari. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

@@ -15,14 +15,27 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Shashank Tiwari - Software Engineer",
-  description: "Results-driven Software Engineer with 1.5 years of experience building high-performance backend systems and MLOps pipelines. Specialized in Java, Python, Spring Boot, FastAPI, AWS, Docker, and Kubernetes.",
-  keywords: ["Software Engineer", "Backend Development", "MLOps", "Java", "Python", "Spring Boot", "FastAPI", "AWS", "Docker", "Kubernetes"],
+  title: "Shashank Tiwari - AI Engineer",
+  description:
+    "AI Engineer specializing in RL infrastructure and LLM agent systems. Built production platforms serving Microsoft and Google. Experienced across the full post-training stack.",
+  keywords: [
+    "AI Engineer",
+    "Reinforcement Learning",
+    "LLM",
+    "Agent Systems",
+    "MCP",
+    "Post-training",
+    "Fine-tuning",
+    "Python",
+    "FastAPI",
+    "Kubernetes",
+  ],
   authors: [{ name: "Shashank Tiwari" }],
   creator: "Shashank Tiwari",
   openGraph: {
-    title: "Shashank Tiwari - Software Engineer",
-    description: "Results-driven Software Engineer with 1.5 years of experience building high-performance backend systems and MLOps pipelines.",
+    title: "Shashank Tiwari - AI Engineer",
+    description:
+      "AI Engineer specializing in RL infrastructure and LLM agent systems. Built production platforms serving Microsoft and Google.",
     type: "website",
     locale: "en_US",
   },
@@ -39,9 +52,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header />
-        <main className="pt-16 min-h-screen">
-          {children}
-        </main>
+        <main className="pt-16 min-h-screen">{children}</main>
         <Footer />
       </body>
     </html>

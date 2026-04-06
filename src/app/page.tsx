@@ -1,189 +1,311 @@
+'use client';
+
 import Link from 'next/link';
-import { ArrowRight, Github, Linkedin, Mail, Trophy, Code, Brain, Target } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
+import GradientBackground from '@/components/GradientBackground';
+import AnimatedSection from '@/components/AnimatedSection';
+import SectionHeading from '@/components/SectionHeading';
+import SkillCategory from '@/components/SkillCategory';
+import { personalInfo, stats, skills, codingProfiles, experiences } from '@/data/resume';
+
+const roles = ['AI Engineer', 'RL Infrastructure', 'LLM Agent Systems', 'Post-Training Stack'];
+
+function HeroTypewriter() {
+  return (
+    <motion.span className="inline-block">
+      {roles.map((role, i) => (
+        <motion.span
+          key={role}
+          className="absolute left-0 right-0 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{
+            opacity: [0, 1, 1, 0],
+            y: [20, 0, 0, -20],
+          }}
+          transition={{
+            duration: 3,
+            delay: i * 3,
+            repeat: Infinity,
+            repeatDelay: (roles.length - 1) * 3,
+            ease: 'easeInOut',
+          }}
+        >
+          {role}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800">
-      {/* Hero Section */}
-      <section className="pt-20 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Hi, I&apos;m{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-                Shashank Tiwari
-              </span>
-            </h1>
-            <p className="text-xl sm:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Software Engineer passionate about building scalable backend systems and MLOps pipelines. 
-              Specialized in Java, Python, Spring Boot, FastAPI, AWS, Docker, and Kubernetes.
+    <div className="min-h-screen bg-[#0a0a0a]">
+      {/* ─── HERO ─── */}
+      <section className="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <GradientBackground />
+
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-blue-400 font-mono text-sm tracking-widest uppercase mb-6"
+          >
+            Welcome to my portfolio
+          </motion.p>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight"
+          >
+            {personalInfo.name}
+          </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="relative h-10 sm:h-12 text-2xl sm:text-3xl font-semibold mb-8 flex items-center justify-center"
+          >
+            <HeroTypewriter />
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-gray-400 text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
+          >
+            {personalInfo.summary}
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.55 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+          >
+            <Link
+              href="/resume"
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.02]"
+            >
+              View Resume
+              <ArrowRight size={18} />
+            </Link>
+            <Link
+              href="/projects"
+              className="inline-flex items-center justify-center gap-2 text-white px-8 py-3.5 rounded-xl font-semibold border border-gray-700 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all duration-300 hover:scale-[1.02]"
+            >
+              View Projects
+            </Link>
+          </motion.div>
+
+          {/* Social */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="flex justify-center gap-5"
+          >
+            {[
+              { href: personalInfo.github, icon: Github, label: 'GitHub' },
+              { href: personalInfo.linkedin, icon: Linkedin, label: 'LinkedIn' },
+              { href: `mailto:${personalInfo.email}`, icon: Mail, label: 'Email' },
+            ].map(({ href, icon: Icon, label }) => (
+              <Link
+                key={label}
+                href={href}
+                target={label !== 'Email' ? '_blank' : undefined}
+                rel={label !== 'Email' ? 'noopener noreferrer' : undefined}
+                className="p-3 rounded-xl text-gray-500 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-300"
+                aria-label={label}
+              >
+                <Icon size={22} />
+              </Link>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+            className="w-5 h-8 rounded-full border-2 border-gray-700 flex items-start justify-center p-1"
+          >
+            <div className="w-1 h-2 rounded-full bg-gray-500" />
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ─── STATS ─── */}
+      <AnimatedSection>
+        <section className="py-16 px-4 sm:px-6 lg:px-8 border-y border-gray-800/50">
+          <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((s, i) => (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-3xl sm:text-4xl font-bold gradient-text mb-1">{s.value}</div>
+                <div className="text-sm text-gray-500">{s.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      </AnimatedSection>
+
+      {/* ─── EXPERIENCE PREVIEW ─── */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <AnimatedSection>
+            <SectionHeading
+              title="Work Experience"
+              gradient="from-blue-400 to-cyan-400"
+              subtitle="Building production AI systems at scale"
+            />
+          </AnimatedSection>
+
+          <div className="space-y-4">
+            {experiences.slice(0, 2).map((exp, i) => (
+              <motion.div
+                key={exp.company}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.5, delay: i * 0.15 }}
+                className="glass-card p-6 transition-all duration-500"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                  <div>
+                    <h3 className="text-lg font-bold text-white">{exp.company}</h3>
+                    <p className="text-blue-400 text-sm font-medium">{exp.role}</p>
+                  </div>
+                  <p className="text-sm text-gray-500">{exp.period}</p>
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
+                  {exp.bullets[0]}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          <AnimatedSection delay={0.3} className="text-center mt-8">
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition-colors"
+            >
+              View full experience
+              <ArrowRight size={16} />
+            </Link>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* ─── SKILLS ─── */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-950/50">
+        <div className="max-w-5xl mx-auto">
+          <AnimatedSection>
+            <SectionHeading
+              title="Technical Skills"
+              gradient="from-purple-400 to-pink-400"
+              subtitle="Technologies and tools I work with"
+            />
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {Object.entries(skills).map(([category, list], i) => (
+              <SkillCategory key={category} category={category} skills={list} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CODING PROFILES ─── */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <AnimatedSection>
+            <SectionHeading
+              title="Coding Profiles"
+              gradient="from-green-400 to-emerald-400"
+              subtitle="Competitive programming achievements"
+            />
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {codingProfiles.map((profile, i) => (
+              <motion.a
+                key={profile.platform}
+                href={profile.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="glass-card p-5 transition-all duration-500 group block"
+              >
+                <div className={`text-xs font-semibold uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r ${profile.color} mb-3`}>
+                  {profile.platform}
+                </div>
+                {profile.rating && (
+                  <div className="text-2xl font-bold text-white mb-1">{profile.rating}</div>
+                )}
+                {profile.rank && (
+                  <div className="text-sm text-gray-400 mb-1">{profile.rank}</div>
+                )}
+                <div className="text-xs text-gray-500">{profile.highlight}</div>
+                <div className="mt-3 flex items-center gap-1 text-xs text-gray-600 group-hover:text-blue-400 transition-colors">
+                  View profile <ExternalLink size={12} />
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CTA ─── */}
+      <AnimatedSection>
+        <section className="py-24 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              Interested in working together?
+            </h2>
+            <p className="text-gray-400 mb-8 text-lg">
+              I&apos;m always open to discussing new opportunities in AI engineering,
+              RL infrastructure, and agent systems.
             </p>
-            
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40"
+              >
+                Get in Touch
+                <ArrowRight size={18} />
+              </Link>
               <Link
                 href="/resume"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                className="inline-flex items-center justify-center gap-2 text-white px-8 py-3.5 rounded-xl font-semibold border border-gray-700 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all duration-300"
               >
-                View Resume
-                <ArrowRight size={20} />
-              </Link>
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-2 bg-transparent text-white px-8 py-3 rounded-lg font-semibold border-2 border-gray-600 hover:border-blue-400 hover:text-blue-400 transition-all duration-300 hover:scale-105"
-              >
-                View Projects
-              </Link>
-              <Link
-                href="#coding-profiles"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
-              >
-                Coding Profiles
-                <ArrowRight size={20} />
-              </Link>
-            </div>
-
-            {/* Social Links */}
-            <div className="flex justify-center space-x-6">
-              <Link
-                href="https://github.com/MarkXLV"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-blue-400 transition-all duration-300 p-2 hover:bg-gray-800/50 rounded-full hover:scale-110"
-              >
-                <Github size={24} />
-              </Link>
-              <Link
-                href="https://www.linkedin.com/in/shashank-tiwari-916234244"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-blue-400 transition-all duration-300 p-2 hover:bg-gray-800/50 rounded-full hover:scale-110"
-              >
-                <Linkedin size={24} />
-              </Link>
-              <Link
-                href="mailto:tiwari.shashank.85911@gmail.com"
-                className="text-gray-400 hover:text-blue-400 transition-all duration-300 p-2 hover:bg-gray-800/50 rounded-full hover:scale-110"
-              >
-                <Mail size={24} />
+                Download Resume
               </Link>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Coding Profiles Section */}
-      <section id="coding-profiles" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-900/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">Coding Profiles</h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              My competitive programming journey and algorithmic problem-solving skills across various platforms.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                platform: "Codeforces",
-                username: "codeme_123",
-                url: "https://codeforces.com/profile/codeme_123",
-                icon: Code,
-                color: "bg-orange-500",
-                description: "Competitive programming platform with algorithmic challenges",
-                achievements: ["Global Rank 1636 in Google Kick Start 2022"]
-              },
-              {
-                platform: "CodeChef",
-                username: "codeme_2802",
-                url: "https://www.codechef.com/users/codeme_2802",
-                icon: Trophy,
-                color: "bg-green-500",
-                description: "Programming contests and practice problems",
-                achievements: ["Global Rank 6 in CodeChef Starters 30 (Aug 2022)"]
-              },
-              {
-                platform: "LeetCode",
-                username: "sstiwari2802",
-                url: "https://leetcode.com/sstiwari2802/",
-                icon: Brain,
-                color: "bg-blue-500",
-                description: "Coding interview preparation and practice",
-                achievements: ["Data Structures & Algorithms practice"]
-              },
-              {
-                platform: "InterviewBit",
-                username: "shashank-tiwari_277",
-                url: "https://www.interviewbit.com/profile/shashank-tiwari_277/",
-                icon: Target,
-                color: "bg-purple-500",
-                description: "Coding interview preparation and company-specific problems",
-                achievements: ["Interview preparation practice", "Company-specific coding challenges"]
-              }
-            ].map((profile, index) => (
-              <div 
-                key={index} 
-                className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-gray-700 hover:border-blue-500"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className={`${profile.color} p-3 rounded-lg shadow-lg`}>
-                    <profile.icon className="text-white" size={24} />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white">{profile.platform}</h3>
-                    <p className="text-gray-400 text-sm">@{profile.username}</p>
-                  </div>
-                </div>
-                
-                <p className="text-gray-300 mb-4 text-sm">{profile.description}</p>
-                
-                <div className="mb-4">
-                  <h4 className="font-semibold text-white mb-2 text-sm">Achievements:</h4>
-                  <ul className="space-y-1">
-                    {profile.achievements.map((achievement, idx) => (
-                      <li key={idx} className="text-xs text-gray-400 flex items-start gap-2">
-                        <span className="text-blue-400 mt-1">•</span>
-                        {achievement}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <Link
-                  href={profile.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 w-full justify-center px-4 py-2 bg-gradient-to-r from-gray-700 to-gray-800 text-white rounded-lg hover:from-gray-600 hover:to-gray-700 transition-all duration-300 hover:scale-105 border border-gray-600"
-                >
-                  View Profile
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Preview */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-white mb-12">Core Skills</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              'Java & Spring Boot', 'Python & FastAPI', 'AWS & Cloud', 'Docker & Kubernetes',
-              'Apache Airflow', 'PostgreSQL', 'MLOps & AI', 'Microservices'
-            ].map((skill, index) => (
-              <div 
-                key={skill} 
-                className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 text-center border border-gray-700 hover:border-blue-500 hover:scale-105"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="text-gray-300 font-medium hover:text-blue-400 transition-colors">{skill}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      </AnimatedSection>
     </div>
   );
 }
