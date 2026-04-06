@@ -87,7 +87,7 @@ export const projects: Project[] = [
       "Delivered 15% average buyer savings per triggered purchase across 200+ active users.",
     ],
     github: "https://github.com/MarkXLV/AmazonNotifier",
-    liveDemo: null,
+    liveDemo: "https://pricewatch-ui.onrender.com/",
   },
 ];
 
