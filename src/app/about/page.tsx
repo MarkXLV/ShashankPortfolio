@@ -1,12 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { GraduationCap } from 'lucide-react';
+import { GraduationCap, BadgeCheck, ExternalLink } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
 import SectionHeading from '@/components/SectionHeading';
 import ExperienceCard from '@/components/ExperienceCard';
 import SkillCategory from '@/components/SkillCategory';
-import { personalInfo, experiences, education, skills, achievements } from '@/data/resume';
+import { personalInfo, experiences, education, skills, achievements, certifications } from '@/data/resume';
 
 export default function About() {
   return (
@@ -82,8 +82,54 @@ export default function About() {
         </div>
       </section>
 
-      {/* ─── ACHIEVEMENTS ─── */}
+      {/* ─── CERTIFICATIONS ─── */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-950/50">
+        <div className="max-w-4xl mx-auto">
+          <AnimatedSection>
+            <SectionHeading
+              title="Certifications"
+              gradient="from-indigo-400 to-purple-400"
+              subtitle="Verified credentials from Anthropic Education"
+            />
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {certifications.map((cert, i) => (
+              <motion.a
+                key={cert.url}
+                href={cert.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="glass-card p-6 flex items-start gap-4 group hover:border-indigo-500/40 transition-colors"
+              >
+                <div className="p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 shrink-0">
+                  <BadgeCheck size={24} className="text-indigo-400" />
+                </div>
+                <div className="min-w-0">
+                  <h3 className="text-base font-bold text-white mb-1 flex items-center gap-1.5">
+                    <span className="group-hover:text-indigo-300 transition-colors">
+                      {cert.name}
+                    </span>
+                    <ExternalLink
+                      size={14}
+                      className="text-gray-500 group-hover:text-indigo-400 transition-colors shrink-0"
+                    />
+                  </h3>
+                  <p className="text-indigo-400 text-sm font-medium">{cert.issuer}</p>
+                  <p className="text-gray-400 text-sm mt-1">{cert.date}</p>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── ACHIEVEMENTS ─── */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <AnimatedSection>
             <SectionHeading
@@ -120,7 +166,7 @@ export default function About() {
       </section>
 
       {/* ─── SKILLS MATRIX ─── */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-950/50">
         <div className="max-w-4xl mx-auto">
           <AnimatedSection>
             <SectionHeading

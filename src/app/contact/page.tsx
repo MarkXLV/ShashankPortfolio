@@ -109,10 +109,10 @@ export default function Contact() {
                     </h3>
                     <ul className="space-y-2">
                       {[
-                        'RL infrastructure & post-training systems',
-                        'LLM agent orchestration at scale',
-                        'Production ML/AI platforms',
-                        'Distributed systems & cloud-native architecture',
+                        'Backend platforms & distributed services',
+                        'High-concurrency microservices at scale',
+                        'Production infrastructure on Kubernetes',
+                        'Cloud-native architecture & data pipelines',
                       ].map((item, i) => (
                         <li key={i} className="text-gray-400 text-sm flex gap-2.5">
                           <span className="text-blue-400/50 mt-0.5 shrink-0">&#9656;</span>

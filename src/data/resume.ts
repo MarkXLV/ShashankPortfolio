@@ -26,11 +26,11 @@ export const experiences: Experience[] = [
     location: "Hyderabad, India",
     period: "Oct 2025 \u2013 Present",
     bullets: [
-      "Built a production RL Gym platform (Python, FastAPI) coordinating 500+ annotators for SFT data collection; designed task queuing logic that slashed annotation turnaround by 35%.",
-      "Architected Stark-Forge, an RL training framework running MCP servers on Kubernetes with process-level isolation; supports LangChain, AutoGen, and CrewAI with pluggable verifiers (SQL, JSON, Python).",
-      "Designed reward functions and evaluation pipelines for agent tasks \u2014 defined success criteria, failure taxonomies, and auto-verifiers, improving task success rate from 41% to 68% across SQL and code benchmarks.",
-      "Delivered 20+ production MCP servers generating verified golden trajectories; Jira MCP server handles 10,000+ requests/day for agent evaluation pipelines at Microsoft and Google.",
-      "Fine-tuned Qwen-0.5B for text-to-SQL on Spider using Agent-Lightning; within 2% of GPT-4o-mini accuracy at 3\u00d7 smaller scale and 10\u00d7 lower inference cost.",
+      "Built a production RL platform (Python, FastAPI) for human-in-the-loop golden trajectory generation, coordinating 500+ annotators and driving $10M ARR.",
+      "Architected Stark-Forge, a distributed backend framework that runs isolated services on Kubernetes; added pluggable SQL, JSON, and Python verification services with support for multiple agent runtimes.",
+      "Designed evaluation and verification pipelines by defining success criteria and automated checks for SQL and code tasks, improving end-to-end task success rate from 41% to 68%.",
+      "Owned delivery of 20+ production MCP servers that generated verified execution traces; the Jira MCP server handles 10,000+ requests/day in production evaluation pipelines used by Microsoft and Google.",
+      "Fine-tuned Qwen-0.5B for text-to-SQL on Spider using Agent-Lightning, reaching within 2% of GPT-4o-mini accuracy with 3\u00d7 smaller scale and 10\u00d7 lower inference cost.",
     ],
   },
   {
@@ -39,8 +39,8 @@ export const experiences: Experience[] = [
     location: "Pune, India",
     period: "Jul 2024 \u2013 Oct 2025",
     bullets: [
-      "Architected a RESTful ETL pipeline (Spring Boot + Airflow) automating 10,000+ alerts/day; reduced data load time by 40% and freed 3 ops engineers for higher-value work.",
-      "Engineered high-concurrency microservices with Memcached and Java ExecutorService; reduced outages by 30% and drove P99 latency from 820ms to 310ms for 5,000+ daily users.",
+      "Architected a RESTful ETL pipeline (Spring Boot, Airflow, SQL) automating 10,000+ alerts/day across financial workflows; reduced data load time by 40% and freed 3 ops engineers for higher-value work.",
+      "Engineered high-concurrency microservices with Memcached and Java ExecutorService for business-critical internal systems; reduced outages by 30% and improved P99 latency from 820ms to 310ms for 5,000+ daily users.",
     ],
   },
   {
@@ -69,19 +69,19 @@ export const projects: Project[] = [
     title: "Finwise",
     tech: ["Next.js", "FastAPI", "LangChain"],
     description:
-      "ReAct-style multi-agent system with tool registry, short-term memory, and financial data retrieval.",
+      "Low-latency FastAPI backend for financial workflows with async request handling, streaming responses, and tool orchestration.",
     bullets: [
-      "Handles 100+ concurrent sessions at sub-500ms latency via async FastAPI and streaming LLM responses.",
-      "Multi-agent orchestration with tool registry and short-term memory for financial data retrieval.",
+      "Built a low-latency FastAPI backend with async request handling, streaming responses, and tool orchestration.",
+      "Supported 100+ concurrent sessions at sub-500ms latency.",
     ],
     github: "https://github.com/MarkXLV/Finwise",
     liveDemo: "https://finwise-demo.vercel.app",
   },
   {
-    title: "Amazon Discount Notifier",
+    title: "Price Watch",
     tech: ["Python", "Scrapy", "MySQL"],
     description:
-      "Automated price monitoring system that scrapes product data, calculates normalized ratings, and sends notifications for price drops.",
+      "Automated price monitoring system that scrapes product listings and sends alerts on price drops.",
     bullets: [
       "Scraped and tracked 50,000+ product listings with automated price-drop alerts.",
       "Delivered 15% average buyer savings per triggered purchase across 200+ active users.",
@@ -134,17 +134,37 @@ export const skills: Record<string, string[]> = {
     "FastAPI",
     "Spring Boot",
     "Django",
-    "RESTful APIs",
+    "REST APIs",
     "Microservices",
     "JDBC",
   ],
   Databases: ["PostgreSQL", "MySQL", "Oracle", "Memcached"],
-  "Concepts & Tools": [
-    "System Design",
+  Infrastructure: [
+    "Kubernetes",
+    "AWS",
+    "GCP",
+    "Docker",
+    "Jenkins",
+    "CI/CD",
+    "Airflow",
+  ],
+  Concepts: [
     "Distributed Systems",
+    "System Design",
     "DSA",
-    "Git",
-    "Postman",
+    "Async Processing",
+    "Data Pipelines",
+  ],
+  "AI & Agent Systems": [
+    "Reinforcement Learning",
+    "LLMs",
+    "Evaluation",
+    "Reward Design",
+    "LangChain",
+    "AutoGen",
+    "CrewAI",
+    "Agent-Lightning",
+    "MCP",
   ],
 };
 
@@ -170,6 +190,40 @@ export const achievements = [
       "CodeChef 1982 (4-Star, top 5%)",
       "Google Kick Start 2022 rank 1636",
     ],
+  },
+];
+
+export interface Certification {
+  name: string;
+  issuer: string;
+  date: string;
+  url: string;
+}
+
+export const certifications: Certification[] = [
+  {
+    name: "Claude Code in Action",
+    issuer: "Anthropic Education",
+    date: "May 2026",
+    url: "https://verify.skilljar.com/c/6ubxjxjvfh6o",
+  },
+  {
+    name: "Building with the Claude API",
+    issuer: "Anthropic Education",
+    date: "May 2026",
+    url: "https://verify.skilljar.com/c/gyy8r7ndu5qa",
+  },
+  {
+    name: "Introduction to Model Context Protocol",
+    issuer: "Anthropic Education",
+    date: "May 2026",
+    url: "https://verify.skilljar.com/c/jzz2t5v2fxuu",
+  },
+  {
+    name: "Introduction to Agent Skills",
+    issuer: "Anthropic Education",
+    date: "May 2026",
+    url: "https://verify.skilljar.com/c/4tju67fvmby8",
   },
 ];
 

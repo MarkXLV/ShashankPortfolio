@@ -17,25 +17,25 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Shashank Tiwari - AI Engineer",
   description:
-    "AI Engineer specializing in RL infrastructure and LLM agent systems. Built production platforms serving Microsoft and Google. Experienced across the full post-training stack.",
+    "Software engineer building backend platforms and distributed services in Python and Java. Shipped production systems handling 10,000+ requests/day on Kubernetes for enterprise workflows.",
   keywords: [
-    "AI Engineer",
-    "Reinforcement Learning",
-    "LLM",
+    "Software Engineer",
+    "Backend Systems",
+    "Distributed Systems",
+    "Microservices",
     "Agent Systems",
     "MCP",
-    "Post-training",
-    "Fine-tuning",
     "Python",
+    "Java",
     "FastAPI",
     "Kubernetes",
   ],
   authors: [{ name: "Shashank Tiwari" }],
   creator: "Shashank Tiwari",
   openGraph: {
-    title: "Shashank Tiwari - AI Engineer",
+    title: "Shashank Tiwari - Software Engineer",
     description:
-      "AI Engineer specializing in RL infrastructure and LLM agent systems. Built production platforms serving Microsoft and Google.",
+      "Software engineer building backend platforms and distributed services in Python and Java. Shipped production systems serving high-volume enterprise workflows.",
     type: "website",
     locale: "en_US",
   },

@@ -14,8 +14,8 @@ const Footer = () => {
               Shashank Tiwari
             </h3>
             <p className="text-gray-500 text-sm leading-relaxed mb-4">
-              AI Engineer specializing in RL infrastructure, LLM agent systems,
-              and production post-training pipelines.
+              Software engineer building backend platforms and distributed
+              services in Python and Java for high-volume production workflows.
             </p>
             <div className="flex gap-3">
               {[
@@ -67,14 +67,14 @@ const Footer = () => {
             </h3>
             <div className="flex flex-wrap gap-2">
               {[
-                'Reinforcement Learning',
-                'LLMs',
-                'Agent Systems',
-                'MCP',
                 'Python',
+                'Java',
                 'FastAPI',
+                'Spring Boot',
+                'Microservices',
                 'Kubernetes',
-                'Fine-tuning',
+                'Distributed Systems',
+                'MCP',
               ].map((skill) => (
                 <span
                   key={skill}

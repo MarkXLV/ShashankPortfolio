@@ -9,7 +9,7 @@ import SectionHeading from '@/components/SectionHeading';
 import SkillCategory from '@/components/SkillCategory';
 import { personalInfo, stats, skills, codingProfiles, experiences } from '@/data/resume';
 
-const roles = ['AI Engineer', 'RL Infrastructure', 'LLM Agent Systems', 'Post-Training Stack'];
+const roles = ['Software Engineer', 'Backend Systems', 'Distributed Infrastructure', 'Agent Systems'];
 
 function HeroTypewriter() {
   return (
@@ -175,7 +175,7 @@ export default function Home() {
             <SectionHeading
               title="Work Experience"
               gradient="from-blue-400 to-cyan-400"
-              subtitle="Building production AI systems at scale"
+              subtitle="Building production backend systems at scale"
             />
           </AnimatedSection>
 
@@ -285,8 +285,8 @@ export default function Home() {
               Interested in working together?
             </h2>
             <p className="text-gray-400 mb-8 text-lg">
-              I&apos;m always open to discussing new opportunities in AI engineering,
-              RL infrastructure, and agent systems.
+              I&apos;m always open to discussing new opportunities in backend engineering,
+              distributed systems, and agent infrastructure.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
