@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Github, ExternalLink } from 'lucide-react';
+import { GithubIcon, ExternalLink } from 'lucide-react';
 import type { Project } from '@/data/resume';
 
 interface ProjectCardProps {
@@ -13,52 +13,67 @@ interface ProjectCardProps {
 export default function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.6, delay: index * 0.2, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative"
+      transition={{ duration: 0.4, delay: index * 0.08 }}
+      whileHover={{ y: -4 }}
+      className="terminal-window h-full flex flex-col"
     >
-      {/* Gradient border glow */}
-      <div className="absolute -inset-px rounded-2xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+      {/* Title bar */}
+      <div className="terminal-titlebar">
+        <div className="terminal-dot" style={{ background: '#ff5f57' }} />
+        <div className="terminal-dot" style={{ background: '#febc2e' }} />
+        <div className="terminal-dot" style={{ background: '#28c840' }} />
+        <span className="ml-3 text-xs font-mono" style={{ color: '#8b949e' }}>
+          {project.title.toLowerCase().replace(/\s/g, '-')}.md
+        </span>
+      </div>
 
-      <div className="relative bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-500 h-full flex flex-col">
-        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-cyan-400 transition-all duration-300">
-          {project.title}
-        </h3>
+      {/* Body */}
+      <div className="p-5 font-mono flex flex-col flex-1">
+        {/* Project name */}
+        <div className="mb-3">
+          <div className="text-xs mb-1" style={{ color: '#8b949e' }}>
+            <span style={{ color: '#00ff41' }}>$</span> cat README.md
+          </div>
+          <h3 className="text-base font-bold" style={{ color: '#c9d1d9' }}>{project.title}</h3>
+        </div>
 
-        <p className="text-gray-400 mb-5 leading-relaxed">{project.description}</p>
+        {/* Description */}
+        <p className="text-xs leading-relaxed mb-4" style={{ color: '#8b949e' }}>
+          {project.description}
+        </p>
 
-        <div className="flex flex-wrap gap-2 mb-6">
+        {/* Tech stack */}
+        <div className="flex flex-wrap gap-1.5 mb-4">
           {project.tech.map((t) => (
-            <span
-              key={t}
-              className="px-3 py-1 text-xs font-medium rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20"
-            >
-              {t}
-            </span>
+            <span key={t} className="tech-tag">{t}</span>
           ))}
         </div>
 
-        <ul className="space-y-2 mb-8 flex-1">
+        {/* Bullets */}
+        <ul className="space-y-1.5 mb-5 flex-1">
           {project.bullets.map((b, i) => (
-            <li key={i} className="text-gray-300 text-sm flex gap-2.5">
-              <span className="text-blue-400 mt-0.5 shrink-0">&#9656;</span>
-              <span>{b}</span>
+            <li key={i} className="flex items-start gap-2 text-xs">
+              <span style={{ color: '#00ff41', flexShrink: 0, marginTop: 2 }}>›</span>
+              <span style={{ color: '#8b949e' }}>{b}</span>
             </li>
           ))}
         </ul>
 
-        <div className="flex gap-3 flex-wrap mt-auto">
+        {/* Links */}
+        <div className="flex gap-2 flex-wrap mt-auto pt-2" style={{ borderTop: '1px solid #21262d' }}>
           {project.github && (
             <Link
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-700/50 text-white rounded-xl text-sm font-medium hover:bg-gray-600/50 transition-all duration-300 border border-gray-600/50"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono rounded transition-all duration-200 hover:opacity-75"
+              style={{ border: '1px solid #21262d', color: '#8b949e' }}
             >
-              <Github size={16} />
-              Source Code
+              <GithubIcon size={12} />
+              [source]
             </Link>
           )}
           {project.liveDemo && (
@@ -66,10 +81,15 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               href={project.liveDemo}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl text-sm font-medium hover:from-blue-500 hover:to-cyan-500 transition-all duration-300"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono rounded transition-all duration-200 hover:opacity-80"
+              style={{
+                background: 'rgba(0,255,65,0.07)',
+                border: '1px solid rgba(0,255,65,0.3)',
+                color: '#00ff41',
+              }}
             >
-              <ExternalLink size={16} />
-              Live Demo
+              <ExternalLink size={12} />
+              [live-demo]
             </Link>
           )}
         </div>

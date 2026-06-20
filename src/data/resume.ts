@@ -69,10 +69,10 @@ export const projects: Project[] = [
     title: "Finwise",
     tech: ["Next.js", "FastAPI", "LangChain"],
     description:
-      "Low-latency FastAPI backend for financial workflows with async request handling, streaming responses, and tool orchestration.",
+      "AI-powered financial assistant with multi-tool agent orchestration, real-time streaming, and a Next.js frontend — built for 100+ concurrent sessions.",
     bullets: [
-      "Built a low-latency FastAPI backend with async request handling, streaming responses, and tool orchestration.",
-      "Supported 100+ concurrent sessions at sub-500ms latency.",
+      "Built a low-latency FastAPI backend with async request handling, streaming responses, and LangChain tool orchestration.",
+      "Supported 100+ concurrent sessions at sub-500ms P99 latency.",
     ],
     github: "https://github.com/MarkXLV/Finwise",
     liveDemo: "https://finwise-demo.vercel.app",
@@ -129,42 +129,21 @@ export const skills: Record<string, string[]> = {
     "Jenkins",
     "CI/CD",
   ],
-  Languages: ["Python", "Java", "C/C++", "SQL", "JavaScript"],
+  Languages: ["Python", "Java", "TypeScript", "JavaScript", "C/C++", "SQL"],
   Backend: [
     "FastAPI",
     "Spring Boot",
     "Django",
     "REST APIs",
     "Microservices",
-    "JDBC",
   ],
   Databases: ["PostgreSQL", "MySQL", "Oracle", "Memcached"],
-  Infrastructure: [
-    "Kubernetes",
-    "AWS",
-    "GCP",
-    "Docker",
-    "Jenkins",
-    "CI/CD",
-    "Airflow",
-  ],
   Concepts: [
     "Distributed Systems",
     "System Design",
     "DSA",
     "Async Processing",
     "Data Pipelines",
-  ],
-  "AI & Agent Systems": [
-    "Reinforcement Learning",
-    "LLMs",
-    "Evaluation",
-    "Reward Design",
-    "LangChain",
-    "AutoGen",
-    "CrewAI",
-    "Agent-Lightning",
-    "MCP",
   ],
 };
 
@@ -267,8 +246,8 @@ export const codingProfiles = [
 ];
 
 export const stats = [
-  { label: "Annotators Managed", value: "500+" },
+  { label: "Annotators Coordinated", value: "500+" },
   { label: "MCP Servers Delivered", value: "20+" },
-  { label: "Requests/Day", value: "10K+" },
-  { label: "Within GPT-4o-mini", value: "2%" },
+  { label: "Requests / Day (Prod)", value: "10K+" },
+  { label: "Gap vs GPT-4o-mini", value: "≤2%" },
 ];

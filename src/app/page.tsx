@@ -2,233 +2,353 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
-import GradientBackground from '@/components/GradientBackground';
+import { ArrowRight, GithubIcon, LinkedinIcon, Mail, ExternalLink } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
-import SectionHeading from '@/components/SectionHeading';
-import SkillCategory from '@/components/SkillCategory';
+import TerminalTyping from '@/components/TerminalTyping';
 import { personalInfo, stats, skills, codingProfiles, experiences } from '@/data/resume';
+import { useState, useEffect } from 'react';
 
-const roles = ['Software Engineer', 'Backend Systems', 'Distributed Infrastructure', 'Agent Systems'];
-
-function HeroTypewriter() {
-  return (
-    <motion.span className="inline-block">
-      {roles.map((role, i) => (
-        <motion.span
-          key={role}
-          className="absolute left-0 right-0 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{
-            opacity: [0, 1, 1, 0],
-            y: [20, 0, 0, -20],
-          }}
-          transition={{
-            duration: 3,
-            delay: i * 3,
-            repeat: Infinity,
-            repeatDelay: (roles.length - 1) * 3,
-            ease: 'easeInOut',
-          }}
-        >
-          {role}
-        </motion.span>
-      ))}
-    </motion.span>
-  );
-}
+// Module-level: survives client-side navigation, resets on hard refresh
+let heroAnimationDone = false;
 
 export default function Home() {
+  // If animation already played this session, jump straight to the final state
+  const [heroStep, setHeroStep] = useState(() => heroAnimationDone ? 3 : 0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  // Pass to TerminalTyping so re-visits show text instantly without animation
+  const skipAnim = heroAnimationDone;
+
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen" style={{ background: '#0d1117' }}>
+
       {/* ─── HERO ─── */}
-      <section className="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <GradientBackground />
+      <section className="relative min-h-[100vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden pt-14">
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-blue-400 font-mono text-sm tracking-widest uppercase mb-6"
-          >
-            Welcome to my portfolio
-          </motion.p>
+        {/* Radial green glow */}
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            width: 700,
+            height: 700,
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(0,255,65,0.035) 0%, transparent 70%)',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+          }}
+          aria-hidden="true"
+        />
 
-          <motion.h1
+        <div className="relative z-10 max-w-3xl mx-auto w-full">
+          {/* Terminal window */}
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight"
+            transition={{ duration: 0.6 }}
+            className="terminal-window"
           >
-            {personalInfo.name}
-          </motion.h1>
+            <div className="terminal-titlebar">
+              <div className="terminal-dot" style={{ background: '#ff5f57' }} />
+              <div className="terminal-dot" style={{ background: '#febc2e' }} />
+              <div className="terminal-dot" style={{ background: '#28c840' }} />
+              <span className="ml-4 text-xs font-mono" style={{ color: '#8b949e' }}>
+                bash — shashank@deccan: ~
+              </span>
+            </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            className="relative h-10 sm:h-12 text-2xl sm:text-3xl font-semibold mb-8 flex items-center justify-center"
-          >
-            <HeroTypewriter />
+            <div className="p-6 sm:p-8 space-y-4 font-mono">
+
+              {/* whoami */}
+              <div className="flex items-center gap-2 text-sm">
+                <span style={{ color: '#00ff41' }}>❯</span>
+                <span style={{ color: '#8b949e' }}>whoami</span>
+              </div>
+
+              <div className="pl-4">
+                <TerminalTyping
+                  text={personalInfo.name}
+                  speed={55}
+                  delay={400}
+                  startOnMount
+                  skip={skipAnim}
+                  className="text-2xl sm:text-4xl font-bold glow-text tracking-tight"
+                  onDone={() => setHeroStep(1)}
+                />
+              </div>
+
+              {heroStep >= 1 && (
+                <motion.div initial={{ opacity: skipAnim ? 1 : 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-sm">
+                  <span style={{ color: '#00ff41' }}>❯</span>
+                  <span style={{ color: '#8b949e' }}>cat role.txt</span>
+                </motion.div>
+              )}
+
+              {heroStep >= 1 && (
+                <motion.div initial={{ opacity: skipAnim ? 1 : 0 }} animate={{ opacity: 1 }} className="pl-4">
+                  <TerminalTyping
+                    text="AI Engineer · RL Infrastructure · LLM Agents · Distributed Systems"
+                    speed={22}
+                    delay={150}
+                    startOnMount
+                    skip={skipAnim}
+                    className="text-sm sm:text-base"
+                    style={{ color: '#00bfff' } as React.CSSProperties}
+                    onDone={() => setHeroStep(2)}
+                  />
+                </motion.div>
+              )}
+
+              {heroStep >= 2 && (
+                <motion.div initial={{ opacity: skipAnim ? 1 : 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-sm">
+                  <span style={{ color: '#00ff41' }}>❯</span>
+                  <span style={{ color: '#8b949e' }}>cat bio.txt</span>
+                </motion.div>
+              )}
+
+              {heroStep >= 2 && (
+                <motion.div initial={{ opacity: skipAnim ? 1 : 0 }} animate={{ opacity: 1 }} className="pl-4 max-w-2xl">
+                  <TerminalTyping
+                    text={personalInfo.summary}
+                    speed={12}
+                    delay={150}
+                    startOnMount
+                    skip={skipAnim}
+                    className="text-xs sm:text-sm leading-relaxed"
+                    style={{ color: '#8b949e' } as React.CSSProperties}
+                    onDone={() => {
+                      heroAnimationDone = true;
+                      setHeroStep(3);
+                    }}
+                  />
+                </motion.div>
+              )}
+
+              {heroStep >= 3 && (
+                <>
+                  <motion.div initial={{ opacity: skipAnim ? 1 : 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-sm">
+                    <span style={{ color: '#00ff41' }}>❯</span>
+                    <span style={{ color: '#8b949e' }}>ls --links</span>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: skipAnim ? 1 : 0, y: skipAnim ? 0 : 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: skipAnim ? 0 : 0.15 }}
+                    className="pl-4 flex flex-col sm:flex-row gap-3"
+                  >
+                    <Link
+                      href="/resume"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-mono font-semibold rounded transition-all duration-200 hover:scale-[1.02]"
+                      style={{
+                        background: 'rgba(0,255,65,0.08)',
+                        border: '1px solid rgba(0,255,65,0.35)',
+                        color: '#00ff41',
+                        boxShadow: '0 0 14px rgba(0,255,65,0.08)',
+                      }}
+                    >
+                      ./view-resume
+                      <ArrowRight size={13} />
+                    </Link>
+                    <Link
+                      href="/projects"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-mono font-semibold rounded transition-all duration-200 hover:opacity-80"
+                      style={{ border: '1px solid #21262d', color: '#c9d1d9' }}
+                    >
+                      ./view-projects
+                    </Link>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: skipAnim ? 1 : 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: skipAnim ? 0 : 0.35 }}
+                    className="pl-4 flex gap-3"
+                  >
+                    {[
+                      { href: personalInfo.github, icon: GithubIcon, label: 'gh' },
+                      { href: personalInfo.linkedin, icon: LinkedinIcon, label: 'in' },
+                      { href: `mailto:${personalInfo.email}`, icon: Mail, label: 'mail' },
+                    ].map(({ href, icon: Icon, label }) => (
+                      <Link
+                        key={label}
+                        href={href}
+                        target={label !== 'mail' ? '_blank' : undefined}
+                        rel={label !== 'mail' ? 'noopener noreferrer' : undefined}
+                        className="flex items-center gap-1.5 text-xs font-mono transition-all duration-200 px-2.5 py-1.5 rounded hover:border-green-400/30"
+                        style={{ color: '#8b949e', border: '1px solid #21262d' }}
+                        aria-label={label}
+                      >
+                        <Icon size={12} />
+                        [{label}]
+                      </Link>
+                    ))}
+                  </motion.div>
+                </>
+              )}
+            </div>
           </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-gray-400 text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
-          >
-            {personalInfo.summary}
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.55 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
-          >
-            <Link
-              href="/resume"
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.02]"
+          {/* Scroll hint */}
+          {heroStep >= 3 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+              className="mt-10 flex justify-center"
             >
-              View Resume
-              <ArrowRight size={18} />
-            </Link>
-            <Link
-              href="/projects"
-              className="inline-flex items-center justify-center gap-2 text-white px-8 py-3.5 rounded-xl font-semibold border border-gray-700 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all duration-300 hover:scale-[1.02]"
-            >
-              View Projects
-            </Link>
-          </motion.div>
-
-          {/* Social */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="flex justify-center gap-5"
-          >
-            {[
-              { href: personalInfo.github, icon: Github, label: 'GitHub' },
-              { href: personalInfo.linkedin, icon: Linkedin, label: 'LinkedIn' },
-              { href: `mailto:${personalInfo.email}`, icon: Mail, label: 'Email' },
-            ].map(({ href, icon: Icon, label }) => (
-              <Link
-                key={label}
-                href={href}
-                target={label !== 'Email' ? '_blank' : undefined}
-                rel={label !== 'Email' ? 'noopener noreferrer' : undefined}
-                className="p-3 rounded-xl text-gray-500 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-300"
-                aria-label={label}
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                className="flex flex-col items-center gap-2"
               >
-                <Icon size={22} />
-              </Link>
-            ))}
-          </motion.div>
+                <span className="text-xs font-mono" style={{ color: '#30363d' }}>scroll</span>
+                <div className="w-px h-8" style={{ background: 'linear-gradient(to bottom, #30363d, transparent)' }} />
+              </motion.div>
+            </motion.div>
+          )}
         </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-5 h-8 rounded-full border-2 border-gray-700 flex items-start justify-center p-1"
-          >
-            <div className="w-1 h-2 rounded-full bg-gray-500" />
-          </motion.div>
-        </motion.div>
       </section>
 
       {/* ─── STATS ─── */}
       <AnimatedSection>
-        <section className="py-16 px-4 sm:px-6 lg:px-8 border-y border-gray-800/50">
-          <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((s, i) => (
-              <motion.div
-                key={s.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="text-center"
-              >
-                <div className="text-3xl sm:text-4xl font-bold gradient-text mb-1">{s.value}</div>
-                <div className="text-sm text-gray-500">{s.label}</div>
-              </motion.div>
-            ))}
+        <section
+          className="py-14 px-4 sm:px-6 lg:px-8"
+          style={{ borderTop: '1px solid #21262d', borderBottom: '1px solid #21262d' }}
+        >
+          <div className="max-w-5xl mx-auto">
+            <div className="mb-8 font-mono text-xs" style={{ color: '#8b949e' }}>
+              <span style={{ color: '#00ff41' }}>❯</span> cat stats.json
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {stats.map((s, i) => (
+                <motion.div
+                  key={s.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.07 }}
+                  className="terminal-card p-5"
+                >
+                  <div className="text-xs font-mono mb-2" style={{ color: '#8b949e' }}>{'// '}{s.label.toLowerCase()}</div>
+                  <div className="stat-value">{s.value}</div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
       </AnimatedSection>
 
-      {/* ─── EXPERIENCE PREVIEW ─── */}
+      {/* ─── EXPERIENCE ─── */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <AnimatedSection>
-            <SectionHeading
-              title="Work Experience"
-              gradient="from-blue-400 to-cyan-400"
-              subtitle="Building production backend systems at scale"
-            />
+            <div className="mb-10 font-mono">
+              <div className="text-xs mb-2" style={{ color: '#8b949e' }}>
+                <span style={{ color: '#00ff41' }}>❯</span> cat experience.log
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold" style={{ color: '#c9d1d9' }}>Work Experience</h2>
+              <div className="green-divider mt-4" />
+            </div>
           </AnimatedSection>
 
           <div className="space-y-4">
             {experiences.slice(0, 2).map((exp, i) => (
               <motion.div
                 key={exp.company}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
-                className="glass-card p-6 transition-all duration-500"
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="terminal-window"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                  <div>
-                    <h3 className="text-lg font-bold text-white">{exp.company}</h3>
-                    <p className="text-blue-400 text-sm font-medium">{exp.role}</p>
-                  </div>
-                  <p className="text-sm text-gray-500">{exp.period}</p>
+                <div className="terminal-titlebar">
+                  <div className="terminal-dot" style={{ background: '#ff5f57' }} />
+                  <div className="terminal-dot" style={{ background: '#febc2e' }} />
+                  <div className="terminal-dot" style={{ background: '#28c840' }} />
+                  <span className="ml-3 text-xs font-mono" style={{ color: '#8b949e' }}>
+                    {exp.company.toLowerCase().replace(/\s/g, '_')}.log
+                  </span>
                 </div>
-                <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
-                  {exp.bullets[0]}
-                </p>
+                <div className="p-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                    <div>
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span className="text-xs font-mono" style={{ color: '#00ff41' }}>$</span>
+                        <span className="font-bold text-sm font-mono" style={{ color: '#c9d1d9' }}>{exp.company}</span>
+                      </div>
+                      <span className="text-xs font-mono" style={{ color: '#00bfff' }}>{exp.role}</span>
+                    </div>
+                    <span
+                      className="text-xs font-mono px-2 py-0.5 rounded self-start sm:self-auto"
+                      style={{ color: '#8b949e', border: '1px solid #21262d', background: '#0d1117' }}
+                    >
+                      {exp.period}
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-2 text-xs font-mono" style={{ color: '#8b949e' }}>
+                    <span style={{ color: '#00ff41', flexShrink: 0, marginTop: 2 }}>›</span>
+                    <span className="leading-relaxed">{exp.bullets[0]}</span>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
 
-          <AnimatedSection delay={0.3} className="text-center mt-8">
+          <AnimatedSection delay={0.3} className="mt-6">
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-mono transition-all duration-200 hover:opacity-70"
+              style={{ color: '#00ff41' }}
             >
-              View full experience
-              <ArrowRight size={16} />
+              <span style={{ color: '#8b949e' }}>./</span>view-full-experience
+              <ArrowRight size={12} />
             </Link>
           </AnimatedSection>
         </div>
       </section>
 
       {/* ─── SKILLS ─── */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-950/50">
+      <section
+        className="py-20 px-4 sm:px-6 lg:px-8"
+        style={{ background: 'rgba(22,27,34,0.5)', borderTop: '1px solid #21262d', borderBottom: '1px solid #21262d' }}
+      >
         <div className="max-w-5xl mx-auto">
           <AnimatedSection>
-            <SectionHeading
-              title="Technical Skills"
-              gradient="from-purple-400 to-pink-400"
-              subtitle="Technologies and tools I work with"
-            />
+            <div className="mb-10 font-mono">
+              <div className="text-xs mb-2" style={{ color: '#8b949e' }}>
+                <span style={{ color: '#00ff41' }}>❯</span> ls skills/ --verbose
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold" style={{ color: '#c9d1d9' }}>Technical Skills</h2>
+              <div className="green-divider mt-4" />
+            </div>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {Object.entries(skills).map(([category, list], i) => (
-              <SkillCategory key={category} category={category} skills={list} index={i} />
+              <motion.div
+                key={category}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.07 }}
+                className="terminal-card p-5"
+              >
+                <div className="text-xs font-mono mb-4" style={{ color: '#00ff41' }}>
+                  # {category}
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {list.map((skill) => (
+                    <span key={skill} className="tech-tag">{skill}</span>
+                  ))}
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -238,38 +358,46 @@ export default function Home() {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <AnimatedSection>
-            <SectionHeading
-              title="Coding Profiles"
-              gradient="from-green-400 to-emerald-400"
-              subtitle="Competitive programming achievements"
-            />
+            <div className="mb-10 font-mono">
+              <div className="text-xs mb-2" style={{ color: '#8b949e' }}>
+                <span style={{ color: '#00ff41' }}>❯</span> curl profiles.json | jq .
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold" style={{ color: '#c9d1d9' }}>Coding Profiles</h2>
+              <div className="green-divider mt-4" />
+            </div>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {codingProfiles.map((profile, i) => (
               <motion.a
                 key={profile.platform}
                 href={profile.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="glass-card p-5 transition-all duration-500 group block"
+                transition={{ duration: 0.4, delay: i * 0.07 }}
+                whileHover={{ y: -3 }}
+                className="terminal-card p-4 block group"
               >
-                <div className={`text-xs font-semibold uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r ${profile.color} mb-3`}>
-                  {profile.platform}
+                <div className="text-xs font-mono mb-3" style={{ color: '#00ff41' }}>
+                  $ {profile.platform.toLowerCase()}
                 </div>
                 {profile.rating && (
-                  <div className="text-2xl font-bold text-white mb-1">{profile.rating}</div>
+                  <div className="text-xl font-bold font-mono mb-0.5" style={{ color: '#c9d1d9' }}>
+                    {profile.rating}
+                  </div>
                 )}
                 {profile.rank && (
-                  <div className="text-sm text-gray-400 mb-1">{profile.rank}</div>
+                  <div className="text-xs font-mono mb-1" style={{ color: '#8b949e' }}>{profile.rank}</div>
                 )}
-                <div className="text-xs text-gray-500">{profile.highlight}</div>
-                <div className="mt-3 flex items-center gap-1 text-xs text-gray-600 group-hover:text-blue-400 transition-colors">
-                  View profile <ExternalLink size={12} />
+                <div className="text-xs font-mono" style={{ color: '#8b949e' }}>{profile.highlight}</div>
+                <div
+                  className="mt-3 flex items-center gap-1 text-xs font-mono group-hover:text-green-400 transition-colors duration-200"
+                  style={{ color: '#30363d' }}
+                >
+                  open → <ExternalLink size={10} />
                 </div>
               </motion.a>
             ))}
@@ -279,29 +407,47 @@ export default function Home() {
 
       {/* ─── CTA ─── */}
       <AnimatedSection>
-        <section className="py-24 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Interested in working together?
-            </h2>
-            <p className="text-gray-400 mb-8 text-lg">
-              I&apos;m always open to discussing new opportunities in backend engineering,
-              distributed systems, and agent infrastructure.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40"
-              >
-                Get in Touch
-                <ArrowRight size={18} />
-              </Link>
-              <Link
-                href="/resume"
-                className="inline-flex items-center justify-center gap-2 text-white px-8 py-3.5 rounded-xl font-semibold border border-gray-700 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all duration-300"
-              >
-                Download Resume
-              </Link>
+        <section className="py-24 px-4 sm:px-6 lg:px-8" style={{ borderTop: '1px solid #21262d' }}>
+          <div className="max-w-2xl mx-auto">
+            <div className="terminal-window">
+              <div className="terminal-titlebar">
+                <div className="terminal-dot" style={{ background: '#ff5f57' }} />
+                <div className="terminal-dot" style={{ background: '#febc2e' }} />
+                <div className="terminal-dot" style={{ background: '#28c840' }} />
+                <span className="ml-3 text-xs font-mono" style={{ color: '#8b949e' }}>contact.sh</span>
+              </div>
+              <div className="p-8 sm:p-10 text-center">
+                <div className="text-xs font-mono mb-6" style={{ color: '#8b949e' }}>
+                  <span style={{ color: '#00ff41' }}>❯</span> echo &quot;open to opportunities&quot;
+                </div>
+                <h2 className="text-lg sm:text-2xl font-bold font-mono mb-3" style={{ color: '#c9d1d9' }}>
+                  Interested in working together?
+                </h2>
+                <p className="text-xs sm:text-sm font-mono mb-8 leading-relaxed" style={{ color: '#8b949e' }}>
+                  Always open to discussing backend engineering,
+                  distributed systems, and agent infrastructure.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-2.5 text-xs font-mono font-semibold rounded transition-all duration-200 hover:scale-[1.02]"
+                    style={{
+                      background: 'rgba(0,255,65,0.08)',
+                      border: '1px solid rgba(0,255,65,0.35)',
+                      color: '#00ff41',
+                    }}
+                  >
+                    ./get-in-touch <ArrowRight size={13} />
+                  </Link>
+                  <Link
+                    href="/resume"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-2.5 text-xs font-mono font-semibold rounded transition-all duration-200 hover:opacity-70"
+                    style={{ border: '1px solid #21262d', color: '#c9d1d9' }}
+                  >
+                    ./view-resume
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </section>
